@@ -1,16 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
-  <title>Flowers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Uma aventura para Agatha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
-    
-<body class="not-loaded">
-    <div class="night"></div>
-    <div class="flowers">
+<body class="not-loaded game-phase">
+  <div id="gameLayer" class="game-layer">
+    <div id="titleScreen" class="title-screen" aria-hidden="false">
+      <div class="title-screen__stars" aria-hidden="true"></div>
+      <h1 class="title-screen__title">Uma Aventura<br>para Agatha</h1>
+      <p class="title-screen__hint">Colete as 5 flores</p>
+      <button type="button" id="btnPlay" class="title-screen__btn pixel-btn">Jogar</button>
+    </div>
+
+    <div id="gameCanvasWrap" class="game-canvas-wrap is-hidden">
+      <canvas id="gameCanvas" width="800" height="450" aria-label="Mini jogo"></canvas>
+      <div class="hud" id="hud">
+        <span class="hud__label">Flores:</span>
+        <span id="hudFlowers">0</span><span>/5</span>
+      </div>
+    </div>
+
+    <div id="messageOverlay" class="message-overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="messageText">
+      <div class="message-overlay__box">
+        <p id="messageText" class="message-overlay__text"></p>
+        <button type="button" id="btnMessageOk" class="pixel-btn pixel-btn--small">Continuar</button>
+      </div>
+    </div>
+
+    <div id="touchControls" class="touch-controls is-hidden" aria-hidden="true">
+      <button type="button" class="touch-controls__btn touch-controls__btn--left" id="touchLeft" aria-label="Esquerda">&#9664;</button>
+      <button type="button" class="touch-controls__btn touch-controls__btn--jump" id="touchJump" aria-label="Pular">A</button>
+      <button type="button" class="touch-controls__btn touch-controls__btn--right" id="touchRight" aria-label="Direita">&#9654;</button>
+    </div>
+  </div>
+
+  <div id="proposalOverlay" class="proposal-overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="proposalTitle">
+    <div class="proposal-overlay__inner">
+      <h2 id="proposalTitle" class="proposal-overlay__title">Agatha, quer namorar comigo?</h2>
+      <div class="proposal-overlay__actions">
+        <button type="button" id="btnYes1" class="pixel-btn">Sim!</button>
+        <button type="button" id="btnYes2" class="pixel-btn">Claro que sim!</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+
+  <div id="finalMessage" class="final-message is-hidden" role="status">
+    <p>Eu te amo! Obrigado por dizer sim</p>
+  </div>
+
+  <div class="night"></div>
+  <div class="flowers flowers--hidden">
       <div class="flower flower--1">
         <div class="flower__leafs flower__leafs--1">
           <div class="flower__leaf flower__leaf--1"></div>
@@ -306,9 +355,9 @@
         </div>
       </div>
     </div>
-  </body>
 
+  <script src="game.js"></script>
   <script src="script.js"></script>
-
+</body>
 
 </html>
