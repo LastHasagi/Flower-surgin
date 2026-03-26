@@ -1,5 +1,9 @@
 """
 Servidor Flask para servir o site estático (deploy na Railway e desenvolvimento local).
+
+Respostas incluem o header Bypass-Tunnel-Reminder (localtunnel / loca.lt). O lembrete
+do túnel é decidido no edge; para o primeiro GET no browser, em muitos casos ainda
+é preciso extensão (ex.: ModHeader) ou um pedido com esse header (ex.: fetch no consola).
 """
 import os
 
@@ -8,6 +12,12 @@ from flask import Flask, abort, send_from_directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
+
+
+@app.after_request
+def _localtunnel_bypass_reminder(response):
+    response.headers.setdefault("Bypass-Tunnel-Reminder", "true")
+    return response
 
 
 def _safe_name(filename: str) -> bool:

@@ -4,6 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <script>
+    (function () {
+      var h = location.hostname || "";
+      if (!/\.loca\.lt$/i.test(h) && h.indexOf("localtunnel.me") === -1) return;
+      var o = window.fetch;
+      window.fetch = function (input, init) {
+        init = init || {};
+        var hdrs = new Headers(init.headers || {});
+        if (!hdrs.has("Bypass-Tunnel-Reminder")) hdrs.set("Bypass-Tunnel-Reminder", "true");
+        init.headers = hdrs;
+        return o.call(this, input, init);
+      };
+    })();
+  </script>
   <title>Uma aventura para Agatha</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
